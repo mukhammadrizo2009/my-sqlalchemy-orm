@@ -1,8 +1,9 @@
 from sqlalchemy import (
     create_engine , 
-    URL ,
-    MetaData,
+    URL 
 )
+
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import config
 
@@ -17,6 +18,6 @@ DATABASE_URL = URL.create(
 
 engine = create_engine(DATABASE_URL)
 
-BASE = MetaData()
+BASE = declarative_base()
 
-Session = sessionmaker(engine)
+Session = sessionmaker(autocommit=False , autoflush=True , bind=engine)
